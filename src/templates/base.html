@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %} {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+  </head>
+  <body class="landing-page">
+    <header>
+      <div class="container">
+        <a href="{{ url_for('main.index') }}">
+          <span>GRAPH</span> <i>Dracula</i></a
+        >
+
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('user.user', id=current_user.id) }}"
+          >{{current_user.username}}</a
+        >
+        {% endif %}
+        <!-- Navigation -->
+        {% include "layouts/navbar.html" %}
+      </div>
+    </header>
+
+    <!-- Main -->
+    {% block main_section%} {% endblock %}
+  </body>
+
+  {%block script%} {%endblock%}
+</html>

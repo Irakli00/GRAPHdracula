@@ -1,0 +1,267 @@
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-decoration: none;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+:root {
+  --main-bg: rgb(100, 149, 237);
+}
+
+html {
+  font-size: 62.5%;
+  background-color: #f1f0f0;
+}
+
+body {
+  line-height: 1;
+  font-family: "Work Sans", sans-serif;
+
+  font-size: 1.6rem;
+}
+
+header {
+  background-color: var(--main-bg);
+  font-size: 1.6rem;
+}
+
+.container {
+  margin: auto;
+  max-width: 1420px;
+  padding: 20px;
+}
+
+header .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  /* padding: 24px 0; */
+}
+
+header .container a {
+  font-size: 2.4rem;
+  color: #f7f7f7;
+}
+
+header .container a i {
+  font-style: normal;
+}
+
+header .container a span {
+  font-family: "Shadows Into Light", serif;
+  font-weight: bolder;
+  font-style: normal;
+}
+
+.index-main {
+  margin: 60px auto 220px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+.index-main > section {
+  display: flex;
+  gap: 60px;
+  justify-content: space-between;
+}
+
+.index-main > section > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+.index-main > section > div > article > p,
+.index-main > section > div > article > ul > li {
+  line-height: 1.75;
+  margin-bottom: 15px;
+}
+
+.index-main > section:nth-child(2) {
+  text-align: end;
+}
+
+.index-main > section > div > article > ul > li {
+  list-style: none;
+  line-height: 1.55;
+}
+
+.index-main > section h1,
+.index-main > section h2 {
+  font-size: 3.2rem;
+}
+
+.index-main > section:last-of-type {
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.index-main > section:last-of-type a {
+  justify-self: center;
+  width: 55%;
+  padding: 12px 10px;
+  border-radius: 4px;
+  background-color: var(--main-bg);
+  color: #fff;
+
+  transition: all 0.2s;
+}
+
+.index-main > section:last-of-type a:hover {
+  background-color: var(--main-bg);
+}
+
+/* .user-main .container {
+  display: flex;
+  gap: 20%;
+} */
+
+.user-main .user-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  background-color: rgb(100, 149, 237, 0.5);
+  padding: 24px;
+
+  margin-bottom: 40px;
+}
+
+.user-main .user-data article {
+  text-align: center;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-main .user-data article img {
+  width: 100px;
+  aspect-ratio: 1.1;
+  border-radius: 50%;
+}
+
+.user-main .user-data article h1 {
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+.user-main .user-data article b {
+  font-weight: 600;
+}

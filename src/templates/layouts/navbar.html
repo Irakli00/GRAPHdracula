@@ -1,0 +1,16 @@
+<!-- <div class="navigation">
+  <nav>
+    <a href="{{ url_for('auth.logIn') }}"> Log In</a>
+  </nav>
+</div> -->
+
+<div class="navigation">
+  <nav>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('auth.logout') }}">Log Out</a>
+    <!-- make logout latter -->
+    {% else %}
+    <a href="{{ url_for('auth.logIn') }}">Log In</a>
+    {% endif %}
+  </nav>
+</div>

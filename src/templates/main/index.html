@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+<!--  -->
+{% block title %} Title {% endblock %}
+<!--  -->
+
+{% block main_section %}
+
+<!--  -->
+
+{% with messages = get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+  {% for message in messages %}
+  <li class="{{category}}">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %} {% block body %}{% endblock %}
+<!--  -->
+
+<main class="index-main container">
+  <section>
+    <div>
+      <h1>We already have <strong> {{users | length}} </strong> Users</h1>
+      <article>
+        <p>
+          Managing your expenses shouldn't be a hassle. With our user-friendly
+          platform, you can effortlessly track your spending, set budgets, and
+          gain insights into your financial habits. Join our growing community
+          of {{ users | length }} users who are taking charge of their finances
+          today!
+        </p>
+      </article>
+    </div>
+    <img
+      src="{{ url_for('static', filename='images/comunicate.png') }}"
+      alt="graph"
+    />
+  </section>
+
+  <section>
+    <img
+      src="{{ url_for('static', filename='images/graph.png') }}"
+      alt="graph"
+    />
+    <div>
+      <h2>How It Works</h2>
+      <article>
+        <ul>
+          <li>
+            <p>
+              <b> Sign Up & Add Your Expenses – </b> Start by creating an
+              account and logging your transactions.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b> Categorize Your Spending – </b> Organize your expenses into
+              categories to see where your money goes.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b> Set Budgets & Goals – </b> Define your financial targets and
+              track your progress effortlessly
+            </p>
+          </li>
+          <li>
+            <p>
+              <b> Gain Insights & Improve – </b> Use our reports to make
+              informed financial decisions.
+            </p>
+          </li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Join Today!</h2>
+    <article>
+      Take the first step towards better financial management. Sign up now and
+      experience a smarter way to handle your expenses!
+    </article>
+
+    <a href="{{ url_for('auth.signUp') }}">Join Now!</a>
+  </section>
+</main>
+{% endblock %}
+<!--  -->
+{%block script%}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{%endblock%}

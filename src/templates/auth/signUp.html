@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block title %} Sign Up {% endblock %} {% block
+main_section %}
+<main>
+  <section class="log-in-section container" id="form-text">
+    <div id="forsm">
+      {% if error %}
+      <div role="alert">{{ error }}</div>
+      {% endif %}
+
+      <div class="form-wrapper">
+        <form method="POST" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            {{ form.username(class="form-control",
+            placeholder=form.username.label.text) }} {% if form.username.errors
+            %}
+            <div class="alert alert-danger">{{ form.username.errors[0] }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.profile_pic(class="form- control",
+            placeholder=form.profile_pic.label.text) }} {% if
+            form.profile_pic.errors %}
+
+            <div class="alert alert-danger">
+              {{ form.profile_pic.errors[0] }}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.email(class="form-control",
+            placeholder=form.email.label.text) }} {% if form.email.errors %}
+            <div class="alert alert-danger">{{ form.email.errors[0] }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.password(class="form-control",
+            placeholder=form.password.label.text) }} {% if form.password.errors
+            %}
+            <div class="alert alert-danger">{{ form.password.errors[0] }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.confirm_password(class="form-control",
+            placeholder=form.confirm_password.label.text) }} {% if
+            form.confirm_password.errors %}
+            <div class="alert alert-danger">
+              {{ form.confirm_password.errors[0] }}
+            </div>
+            {% endif %}
+          </div>
+
+          {{ form.submit(class="btn btn-primary") }}
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

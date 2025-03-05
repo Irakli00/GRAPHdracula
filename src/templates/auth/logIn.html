@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+<!--  -->
+{% block title %} --title-- {% endblock %}
+<!--  -->
+
+{% block main_section %}
+<main>
+  <section class="log-in-section container" id="form-text">
+    <div id="forsm">
+      {% if error %}
+      <div role="alert">{{ error }}</div>
+      {% endif %}
+      <div class="form-wrapper">
+        <form method="POST">
+          {{form.hidden_tag()}} {{form.username(class = "form-control",
+          placeholder=form.username.label.text)}} {{form.password(class =
+          "form-control", placeholder=form.password.label.text)}}
+          {{form.submit()}}
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

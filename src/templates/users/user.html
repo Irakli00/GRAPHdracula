@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+<!--  -->
+{% block title %} {{user.username}} {% endblock %}
+<!--  -->
+
+{% block main_section %}
+
+<main class="user-main">
+  <div class="container">
+    <section class="user-data">
+      <article>
+        {%if user.profile_photo%}
+        <img
+          src="{{ url_for('static', filename='upload/' + user.profile_photo) }}"
+          alt="Profile Photo"
+        />
+
+        {%endif%}
+        <h1>{{user.username}}</h1>
+
+        <p>{{user.email}}</p>
+      </article>
+      <article>
+        <p class="budget-for">
+          Budget for {{user.budget.month}}, {{user.budget.year}} :
+          <b> {{user.budget.amount}}$ </b>
+        </p>
+        <p>Tottal spent: <b id="tottal-js"></b></p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Tottal expanses:</h2>
+      <section>
+        <canvas id="totalChart" data-userId="{{user.id}}"></canvas>
+      </section>
+
+      <form method="POST" class="budget-form">
+        <label for="budgetDate">Select Month:</label>
+        <input
+          type="month"
+          name="budget_date"
+          id="budgetDate"
+          min="2025-03"
+          required
+        />
+
+        <label for="budgetAmount">Budget Amount:</label>
+        <input type="number" name="budget_amount" id="budgetAmount" required />
+
+        <input type="submit" value="Submit" />
+      </form>
+
+      <form method="POST" class="expanses-form">
+        <label for="category">Choose a category:</label>
+        <select id="category" name="category">
+          <option value="1">Food</option>
+          <option value="2">Transport</option>
+          <option value="3">Groceries</option>
+          <option value="4">Shopping</option>
+          <option value="5">Entertainment</option>
+          <option value="6">Travel</option>
+          <option value="7">Health</option>
+          <option value="8">Bills</option>
+        </select>
+        <label for="expanse_amount">Expanse Amount:</label>
+        <input
+          type="number"
+          name="expanse_amount"
+          id="expanseAmount"
+          required
+        />
+        <input type="text" name="description" id="expanseDesc" />
+        <input type="date" name="expanse_date" id="expanseDate" />
+
+        <input type="submit" value="Submit" />
+      </form>
+      <p class="message"></p>
+    </section>
+  </div>
+</main>
+{% endblock %}
+<!--  -->
+{%block script%}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/userExpanses.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{%endblock%}
