@@ -46,7 +46,7 @@ const createChart = function (ctx0, expanses) {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: "left",
+          position: "top",
         },
       },
     },
@@ -109,9 +109,10 @@ document.addEventListener("DOMContentLoaded", function () {
         options: {
           responsive: true,
           maintainAspectRatio: false,
+
           plugins: {
             legend: {
-              position: "left",
+              position: "top",
             },
           },
         },

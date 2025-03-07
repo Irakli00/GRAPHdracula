@@ -265,3 +265,125 @@ header .container a span {
 .user-main .user-data article b {
   font-weight: 600;
 }
+
+#sections-nav {
+  background-color: var(--main-bg);
+  padding: 20px;
+}
+
+#sections-nav ul {
+  max-width: 1420px;
+  margin: auto;
+
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+#sections-nav ul li {
+  cursor: pointer;
+  color: #fff;
+  padding-bottom: 4px;
+  font-size: 2rem;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+#sections-nav ul li:hover,
+#sections-nav ul li.active {
+  border-bottom: 2px solid blue;
+  color: blue;
+}
+
+.stat-area {
+  display: flex;
+}
+
+.stat-area section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.stat-area section h2 {
+  text-align: center;
+  color: blue;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.stat-area section canvas {
+  max-height: 500px;
+}
+
+#totallExpanses.hidden,
+#addBudget.hidden,
+#addExpanses.hidden {
+  display: none;
+}
+
+#addBudget form {
+  display: flex;
+  flex-direction: column;
+}
+
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.budget-table th,
+.budget-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.budget-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.add-budget-form {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--main-bg);
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.add-budget-form h3 {
+  font-size: 1.8rem;
+}
+
+.add-budget-form form {
+  display: flex;
+  gap: 4px;
+}
+
+.add-budget-form form label {
+  font-size: 1.6rem;
+}
+.add-budget-form form input {
+  padding: 4px;
+  border-radius: 3px;
+  border: none;
+}
+
+.add-budget-form form input[type="submit"] {
+  background-color: #fff;
+  color: var(--main-bg);
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 12px;
+  transition: all 0.2s ease;
+}
+
+.add-budget-form form input[type="submit"]:hover {
+  background-color: rgb(0, 89, 255);
+  color: #fff;
+}

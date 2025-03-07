@@ -74,8 +74,8 @@ def populate_db_command():
                         expense16, expense17, expense18, expense19])
 
 
-    budget1 = Budget( amount=5000.00, month=3, year=2025, user_id=user1.id)
-    budget3 = Budget( amount=2000.00, month=3, year=2025, user_id=user2.id)
+    budget1 = Budget( amount=5000.00, month='03', year=2025, user_id=user1.id)
+    budget3 = Budget( amount=2000.00, month='03', year=2025, user_id=user2.id)
 
     db.session.add_all([budget1, budget3])
 

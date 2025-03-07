@@ -28,55 +28,92 @@
         <p>Tottal spent: <b id="tottal-js"></b></p>
       </article>
     </section>
-
-    <section>
-      <h2>Tottal expanses:</h2>
-      <section>
-        <canvas id="totalChart" data-userId="{{user.id}}"></canvas>
+  </div>
+  <section id="sections-nav">
+    <ul>
+      <li class="active">Tottal</li>
+      <li>Add Budget</li>
+      <li>Add Expanses</li>
+    </ul>
+  </section>
+  <div class="container">
+    <div class="stat-area">
+      <section id="totallExpanses" class="hidden">
+        <h2>Your Tottal Expanses</h2>
+        <section>
+          <canvas id="totalChart" data-userId="{{user.id}}"></canvas>
+        </section>
       </section>
 
-      <form method="POST" class="budget-form">
-        <label for="budgetDate">Select Month:</label>
-        <input
-          type="month"
-          name="budget_date"
-          id="budgetDate"
-          min="2025-03"
-          required
-        />
+      <section id="addBudget">
+        {% if budgets %}
+        <table class="budget-table">
+          <caption>
+            Your Budgets
+          </caption>
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Year</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for budget in budgets %}
+            <tr>
+              <td>{{ budget.month }}</td>
+              <td>{{ budget.year }}</td>
+              <td>{{ budget.amount }}$</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
 
-        <label for="budgetAmount">Budget Amount:</label>
-        <input type="number" name="budget_amount" id="budgetAmount" required />
+        <article class="add-budget-form">
+          <h3>Add a Budget or Change Existing</h3>
+          <form method="POST">
+            {{ budget_form.hidden_tag() }}
 
-        <input type="submit" value="Submit" />
-      </form>
+            <label for="budgetDate">Select Month:</label>
+            {{ budget_form.budget_date(id="budgetDate", min="2025-03",
+            required=True) }}
 
-      <form method="POST" class="expanses-form">
-        <label for="category">Choose a category:</label>
-        <select id="category" name="category">
-          <option value="1">Food</option>
-          <option value="2">Transport</option>
-          <option value="3">Groceries</option>
-          <option value="4">Shopping</option>
-          <option value="5">Entertainment</option>
-          <option value="6">Travel</option>
-          <option value="7">Health</option>
-          <option value="8">Bills</option>
-        </select>
-        <label for="expanse_amount">Expanse Amount:</label>
-        <input
-          type="number"
-          name="expanse_amount"
-          id="expanseAmount"
-          required
-        />
-        <input type="text" name="description" id="expanseDesc" />
-        <input type="date" name="expanse_date" id="expanseDate" />
+            <label for="budgetAmount">Budget Amount:</label>
+            {{ budget_form.budget_amount(id="budgetAmount", required=True) }} {{
+            budget_form.submit() }}
+          </form>
+        </article>
+      </section>
 
-        <input type="submit" value="Submit" />
-      </form>
-      <p class="message"></p>
-    </section>
+      <section id="addExpanses" class="hidden">
+        <form method="POST" class="expanses-form">
+          <label for="category">Choose a category:</label>
+          <select id="category" name="category">
+            <option value="1">Food</option>
+            <option value="2">Transport</option>
+            <option value="3">Groceries</option>
+            <option value="4">Shopping</option>
+            <option value="5">Entertainment</option>
+            <option value="6">Travel</option>
+            <option value="7">Health</option>
+            <option value="8">Bills</option>
+          </select>
+          <label for="expanse_amount">Expanse Amount:</label>
+          <input
+            type="number"
+            name="expanse_amount"
+            id="expanseAmount"
+            required
+          />
+          <input type="text" name="description" id="expanseDesc" />
+          <input type="date" name="expanse_date" id="expanseDate" />
+
+          <input type="submit" value="Submit" />
+        </form>
+        <p class="message"></p>
+      </section>
+    </div>
   </div>
 </main>
 {% endblock %}
