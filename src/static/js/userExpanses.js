@@ -126,20 +126,30 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("tottal-js").textContent = `${total}$`;
 
       //-----------------
-
       const ctx2 = document.getElementById("expansesChart");
 
-      console.log(expenseData);
-      const expansesAmountData = expenseData.map((el) => el.amount);
-      const expanseLabels = expenseData.map((el) => el.date);
+      const soulTrack = expenseData.map((el) => {
+        return { date: el.date, amount: el.amount };
+      });
+
+      const expansesAmountData = soulTrack.reduce((acc, expense) => {
+        if (!acc[expense.date]) {
+          acc[expense.date] = { date: expense.date, amount: 0 };
+        }
+        acc[expense.date].amount += expense.amount;
+        return acc;
+      }, {});
+
+      const groupedByDate = Object.values(expansesAmountData);
+      const expanseLabels = new Set(expenseData.map((el) => el.date));
 
       const expansesChart = new Chart(ctx2, {
         type: "line",
         data: {
-          labels: expanseLabels,
+          labels: [...expanseLabels],
           datasets: [
             {
-              data: expansesAmountData,
+              data: groupedByDate.map((el) => el.amount),
               backgroundColor: [
                 "rgb(255, 99, 132)",
                 "rgb(54, 162, 235)",
@@ -168,7 +178,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       allCharts.push(expansesChart);
     })
-
     .catch((error) => console.error("Error fetching data:", error));
 });
 
@@ -189,3 +198,4 @@ statBtns.forEach((el, i) => {
     statAreas[el.dataset.index].classList.remove("hidden");
   });
 });
+//-------------------

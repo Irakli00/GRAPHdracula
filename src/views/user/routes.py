@@ -74,7 +74,7 @@ def get_user_expenses(id):
         {
             "amount": expense.amount,
             "description": expense.description,
-            "date": expense.date.strftime("%Y-%m"),
+            "date": expense.date.strftime("%d %B %Y"),
             "category":expense.category.name
         }
         for expense in user.expenses
