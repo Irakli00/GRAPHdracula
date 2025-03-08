@@ -87,8 +87,26 @@
       </section>
 
       <section id="addExpanses">
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for expanse in expanses %}
+            <tr>
+              <td>{{ expanse.amount }}</td>
+              <td>{{ expanse.description }}</td>
+              <td>{{ expanse.date }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
         <form method="POST" class="expanses-form">
-          {{ expanses_form.hidden_tag() }} {# CSRF token for security #}
+          {{ expanses_form.hidden_tag() }}
 
           <label for="{{ expanses_form.expanse_category.id }}"
             >Choose a category:</label

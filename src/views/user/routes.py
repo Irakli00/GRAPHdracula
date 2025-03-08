@@ -45,6 +45,17 @@ def user(id):
             db.session.commit()
 
 
+    if expanses_form.validate_on_submit():
+        expanse_category = expanses_form.expanse_category.data
+        expanse_amount = expanses_form.expanse_amount.data
+        expanse_desc = expanses_form.expanse_desc.data
+        expanse_date = expanses_form.expanse_date.data
+
+        new_expanse = Expense(amount = expanse_amount, description = expanse_desc, date = expanse_date, user_id = current_user.id, category_id = expanse_category)
+
+        db.session.add(new_expanse)
+        db.session.commit()
+
     if current_user.id != user.id:
         flash("You are not authorized to view this page.", "danger")
         return redirect(url_for('main.index'))
