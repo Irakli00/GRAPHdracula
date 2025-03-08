@@ -1,5 +1,5 @@
 const userId = document.getElementById("totalChart").dataset.userid;
-
+const expansesForm = document.querySelector(".expanses-form");
 const allCharts = [];
 
 const formatExpanses = function (expanses) {
@@ -79,8 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      console.log(expenseData);
-
       const groupedExpenses = formatExpanses(expenseData);
       const labels = formatLabels(expenseData);
 
@@ -126,107 +124,50 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       document.getElementById("tottal-js").textContent = `${total}$`;
+
+      //-----------------
+
+      const ctx2 = document.getElementById("expansesChart");
+
+      console.log(expenseData);
+      const expansesAmountData = expenseData.map((el) => el.amount);
+      const expanseLabels = expenseData.map((el) => el.date);
+
+      const expansesChart = new Chart(ctx2, {
+        type: "line",
+        data: {
+          labels: expanseLabels,
+          datasets: [
+            {
+              data: expansesAmountData,
+              backgroundColor: [
+                "rgb(255, 99, 132)",
+                "rgb(54, 162, 235)",
+                "rgb(255, 205, 86)",
+                "rgb(86, 255, 123)",
+                "rgb(255, 86, 255)",
+                "rgb(255, 86, 86)",
+                "rgb(86, 125, 255)",
+              ],
+              borderColor: "rgb(0, 0, 0)",
+              borderWidth: 0.5,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+
+      allCharts.push(expansesChart);
     })
+
     .catch((error) => console.error("Error fetching data:", error));
 });
-
-// const budgetForm = document.querySelector(".budget-form");
-
-// budgetForm &&
-//   budgetForm.addEventListener("submit", async function (event) {
-//     event.preventDefault();
-
-//     const budgetDate = document.getElementById("budgetDate").value;
-//     const budgetAmount = document.getElementById("budgetAmount").value;
-
-//     try {
-//       await fetch("/api/user/budget", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           budget_date: budgetDate,
-//           budget_amount: budgetAmount,
-//         }),
-//       })
-//         .then((res) => res.json())
-//         .then((d) => {
-//           console.log(d);
-//           document.querySelector(".message").textContent = d.message;
-//           document.querySelector(
-//             ".budget-for"
-//           ).innerHTML = `  Budget for 0${d.budget.month}, ${d.budget.year} :
-//           <b> ${d.budget.amount}$</b>`;
-//         });
-//     } catch (error) {
-//       console.error("Fetch Error:", error);
-//     }
-//   });
-
-document
-  .querySelector(".expanses-form")
-  .addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    // const formData = {
-    //   category: document.getElementById("category").value,
-    //   expanse_amount: document.getElementById("expanseAmount").value,
-    //   description: document.getElementById("expanseDesc").value,
-    //   expanse_date: document.getElementById("expanseDate").value,
-    // };
-
-    try {
-      await fetch("/api/user/expanses").then(
-        (res) => console.log(res.json())
-        // console.log(convertExpanseCategory(formData.category));
-        // const xExpenses = [];
-        // xExpenses.push({
-        //   category: convertExpanseCategory(formData.category),
-        //   amount: formData.expanse_amount,
-        // });
-        // const labels = [
-        //   ...new Set(xExpenses.map((expense) => expense.category)),
-        // ];
-        // console.log(xExpenses, labels);
-        // if (!allCharts[0]) {
-        //   new Chart(document.getElementById("totalChart"), {
-        //     type: "doughnut",
-        //     data: {
-        //       labels: labels,
-        //       datasets: [
-        //         {
-        //           data: xExpenses,
-        //           backgroundColor: [
-        //             "rgb(255, 99, 132)",
-        //             "rgb(54, 162, 235)",
-        //             "rgb(255, 205, 86)",
-        //             "rgb(86, 255, 123)",
-        //             "rgb(255, 86, 255)",
-        //             "rgb(255, 86, 86)",
-        //             "rgb(86, 125, 255)",
-        //           ],
-        //           borderColor: "rgb(0, 0, 0)",
-        //           borderWidth: 0.5,
-        //         },
-        //       ],
-        //     },
-        //     options: {
-        //       responsive: true,
-        //       maintainAspectRatio: false,
-        //       plugins: {
-        //         legend: {
-        //           position: "left",
-        //         },
-        //       },
-        //     },
-        //   });
-        // } else {
-        //   allCharts[0].data.datasets[0].data.push(+formData.expanse_amount); // pass chart as argument latter
-        //   allCharts[0].update();
-        // }
-      );
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  });
