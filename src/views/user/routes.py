@@ -5,7 +5,7 @@ from datetime import datetime
 
 from src.models import User, Budget, Expense
 from src.extensions import db
-from src.views.user.forms import BudgetForm
+from src.views.user.forms import BudgetForm, ExpansesForm
 
 users_blueprint = Blueprint('user', __name__, template_folder='templates')
 
@@ -14,6 +14,7 @@ users_blueprint = Blueprint('user', __name__, template_folder='templates')
 @login_required
 def user(id):
     budget_form = BudgetForm()
+    expanses_form = ExpansesForm()
     user = User.query.get_or_404(id)
 
     if budget_form.validate_on_submit():
@@ -49,8 +50,9 @@ def user(id):
         return redirect(url_for('main.index'))
     
     user_budgets = Budget.query.filter(Budget.user_id == current_user.id)
+    user_expanses = Expense.query.filter(Expense.user_id == current_user.id)
     
-    return render_template('users/user.html', user=user, budget_form=budget_form, budgets = user_budgets)
+    return render_template('users/user.html', user=user, budget_form=budget_form, budgets = user_budgets, expanses_form = expanses_form, expanses = user_expanses)
 
 
 @users_blueprint.route("/api/user/<int:id>/expenses")

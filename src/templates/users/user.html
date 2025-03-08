@@ -45,7 +45,7 @@
         </section>
       </section>
 
-      <section id="addBudget">
+      <section id="addBudget" class="hidden">
         {% if budgets %}
         <table class="budget-table">
           <caption>
@@ -86,30 +86,30 @@
         </article>
       </section>
 
-      <section id="addExpanses" class="hidden">
+      <section id="addExpanses">
         <form method="POST" class="expanses-form">
-          <label for="category">Choose a category:</label>
-          <select id="category" name="category">
-            <option value="1">Food</option>
-            <option value="2">Transport</option>
-            <option value="3">Groceries</option>
-            <option value="4">Shopping</option>
-            <option value="5">Entertainment</option>
-            <option value="6">Travel</option>
-            <option value="7">Health</option>
-            <option value="8">Bills</option>
-          </select>
-          <label for="expanse_amount">Expanse Amount:</label>
-          <input
-            type="number"
-            name="expanse_amount"
-            id="expanseAmount"
-            required
-          />
-          <input type="text" name="description" id="expanseDesc" />
-          <input type="date" name="expanse_date" id="expanseDate" />
+          {{ expanses_form.hidden_tag() }} {# CSRF token for security #}
 
-          <input type="submit" value="Submit" />
+          <label for="{{ expanses_form.expanse_category.id }}"
+            >Choose a category:</label
+          >
+          {{ expanses_form.expanse_category(class="form-control") }}
+
+          <label for="{{ expanses_form.expanse_amount.id }}"
+            >Expanse Amount:</label
+          >
+          {{ expanses_form.expanse_amount(class="form-control", required=True)
+          }}
+
+          <label for="{{ expanses_form.expanse_desc.id }}"
+            >Short Description:</label
+          >
+          {{ expanses_form.expanse_desc(class="form-control",
+          placeholder="Description") }}
+
+          <label for="{{ expanses_form.expanse_date.id }}">Date:</label>
+          {{ expanses_form.expanse_date(class="form-control", required=True) }}
+          {{ expanses_form.submit(class="btn btn-primary") }}
         </form>
         <p class="message"></p>
       </section>
