@@ -31,9 +31,9 @@
   </div>
   <section id="sections-nav">
     <ul>
-      <li class="active">Tottal</li>
-      <li>Add Budget</li>
-      <li>Add Expanses</li>
+      <li data-index="0" class="active">Tottal</li>
+      <li data-index="1">Add Budget</li>
+      <li data-index="2">Add Expanses</li>
     </ul>
   </section>
   <div class="container">
@@ -45,7 +45,7 @@
         </section>
       </section>
 
-      <section id="addBudget">
+      <section id="addBudget" class="hidden">
         {% if budgets %}
         <table class="budget-table">
           <caption>
@@ -86,7 +86,7 @@
         </article>
       </section>
 
-      <section id="addExpanses">
+      <section id="addExpanses" class="hidden">
         <article>
           <canvas id="expansesChart" data-userId="{{user.id}}"></canvas>
         </article>

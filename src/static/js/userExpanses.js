@@ -171,3 +171,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     .catch((error) => console.error("Error fetching data:", error));
 });
+
+//-------------------
+const statBtns = document.getElementById("sections-nav").querySelectorAll("li");
+const statAreas = document
+  .querySelector(".stat-area")
+  .querySelectorAll(".stat-area > section");
+
+statBtns.forEach((el, i) => {
+  el.addEventListener("click", () => {
+    statBtns.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    el.classList.add("active");
+
+    statAreas.forEach((el) => el.classList.add("hidden"));
+    statAreas[el.dataset.index].classList.remove("hidden");
+  });
+});
