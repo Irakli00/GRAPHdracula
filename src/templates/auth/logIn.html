@@ -24,9 +24,17 @@
       {% endif %}
       <div class="form-wrapper">
         <form method="POST">
-          {{form.hidden_tag()}} {{form.username(class = "form-control",
-          placeholder=form.username.label.text)}} {{form.password(class =
-          "form-control", placeholder=form.password.label.text)}}
+          {{form.hidden_tag()}}
+          <div>
+            <label for="user-username">Username: </label>
+            {{form.username(class = "form-control", id="user-username",
+            placeholder=form.username.label.text)}}
+          </div>
+          <div>
+            <label for="user-password">Password: </label>
+            {{form.password(class = "form-control",id="user-password",
+            placeholder=form.password.label.text)}}
+          </div>
           {{form.submit()}}
         </form>
       </div>

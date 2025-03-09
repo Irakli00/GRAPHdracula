@@ -411,3 +411,44 @@ header .container a span {
   background-color: rgb(0, 89, 255);
   color: #fff;
 }
+
+#forsm {
+  background-color: var(--main-bg);
+  margin-top: 60px;
+  border-radius: 6px;
+  padding: 45px;
+}
+
+#form-text > #forsm form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#form-text > #forsm form div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #fff;
+}
+
+#form-text > #forsm form div input {
+  padding: 5px;
+}
+
+#form-text > #forsm form input[type="submit"] {
+  background-color: #fff;
+  color: var(--main-bg);
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 12px;
+  transition: all 0.2s ease;
+  border: none;
+  padding: 8px;
+  font-size: 1.4rem;
+}
+
+#form-text > #forsm form input[type="submit"]:hover {
+  background-color: rgb(0, 89, 255);
+  color: #fff;
+}

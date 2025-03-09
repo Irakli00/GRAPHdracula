@@ -8,7 +8,7 @@ from flask_wtf.file import FileField, FileAllowed
 class LogInForm(FlaskForm):
     username = StringField('Name', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
+    submit = SubmitField('Log In')
 
 
 class SignUpForm(FlaskForm):
