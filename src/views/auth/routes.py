@@ -24,26 +24,21 @@ def logIn():
         else:
             return render_template('auth/logIn.html', form=form, error='Invalid username or password')
 
-        print(form.password.data)
+        flash("You have been logged in.", "success")
         return redirect(url_for('user.user', id=user.id))
+    
     return render_template('auth/logIn.html', form=form)
 
 @auth_blueprint.route('/signUp', methods =['POST','GET'])
 def signUp():
     def generate_uuid_filename(filename):
-
         unique_filename = str(uuid.uuid4().hex[:18]) 
-
         _, file_extension = os.path.splitext(filename)
-
         return f"{unique_filename}{file_extension}"
 
     form = SignUpForm()
 
     if form.validate_on_submit():
-        exists = User.query.filter_by(email=form.email.data).first()
-
-        print(form.profile_pic.data)
         filename = None
         
         if form.profile_pic.data:
@@ -51,19 +46,19 @@ def signUp():
             filename = generate_uuid_filename(file.filename)
             file.save(os.path.join(Config.UPLOAD_PATH, filename))
 
-        if exists:
-            flash("Email already registered. Please log in.", "danger")
+        email_exists = User.query.filter_by(email=form.email.data).first()
+        if email_exists:
+            flash("Email already registered", "danger")
             return redirect(url_for('auth.signUp'))
         
         hashed_password = generate_password_hash(form.password.data)
-
         
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password, profile_photo = filename)
 
         db.session.add(new_user)
         db.session.commit() #make into .create()
 
-        flash("Account created successfully! You can now log in.", "success")
+        flash("Account created successfully!", "success")
         login_user(new_user)
 
         return redirect(url_for('user.user', id=new_user.id))  

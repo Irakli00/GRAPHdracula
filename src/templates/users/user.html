@@ -2,8 +2,19 @@
 <!--  -->
 {% block title %} {{user.username}} {% endblock %}
 <!--  -->
-
 {% block main_section %}
+<!--  -->
+{% with messages = get_flashed_messages(with_categories = True) %}
+<!--  -->
+{% if messages %}
+<aside class="flashes">
+  {% for category, message in messages %}
+  <p class="{{category}}">{{ message }}</p>
+  {% endfor %}
+</aside>
+{% endif %}
+<!--  -->
+{% endwith %}
 
 <main class="user-main">
   <div class="container">
@@ -47,10 +58,8 @@
 
       <section id="addBudget" class="hidden">
         {% if budgets %}
+        <h2>Your Budgets</h2>
         <table class="budget-table">
-          <caption>
-            Your Budgets
-          </caption>
           <thead>
             <tr>
               <th>Month</th>
@@ -87,6 +96,8 @@
       </section>
 
       <section id="addExpanses" class="hidden">
+        <h2>Your expanses in March</h2>
+
         <article>
           <canvas id="expansesChart" data-userId="{{user.id}}"></canvas>
         </article>

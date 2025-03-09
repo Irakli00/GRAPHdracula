@@ -134,6 +134,30 @@ header {
   font-size: 1.6rem;
 }
 
+aside.flashes {
+  text-align: center;
+  position: fixed;
+  line-height: 1.22;
+  left: 0;
+  top: 100px;
+  right: 90%;
+}
+aside.flashes p {
+  color: #fff;
+  padding: 12px 0;
+  border-radius: 0 4px 4px 0;
+  transition: opacity 0.3s;
+}
+aside.flashes p.success {
+  background-color: rgba(0, 0, 255, 0.514);
+}
+aside.flashes p.danger {
+  background-color: rgba(255, 0, 0, 0.514);
+}
+aside.flashes p.info {
+  background-color: rgba(255, 166, 0, 0.514);
+}
+
 .container {
   margin: auto;
   max-width: 1420px;

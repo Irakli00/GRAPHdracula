@@ -1,5 +1,20 @@
-{% extends "base.html" %} {% block title %} Sign Up {% endblock %} {% block
-main_section %}
+{% extends "base.html" %}
+<!--  -->
+{% block title %} Sign Up {% endblock %}
+<!--  -->
+{% block main_section %}
+<!--  -->
+{% with messages = get_flashed_messages(with_categories = True) %}
+<!--  -->
+{% if messages %}
+<aside class="flashes">
+  {% for category, message in messages %}
+  <p class="{{category}}">{{ message }}</p>
+  {% endfor %}
+</aside>
+{% endif %}
+<!--  -->
+{% endwith %}
 <main>
   <section class="log-in-section container" id="form-text">
     <div id="forsm">
@@ -61,4 +76,12 @@ main_section %}
     </div>
   </section>
 </main>
-{% endblock %}
+{% endblock %} {%block script%}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      document.querySelector(".flashes").querySelector("p").style.opacity = 0;
+    }, 3000);
+  });
+</script>
+{%endblock%}

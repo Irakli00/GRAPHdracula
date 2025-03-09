@@ -37,7 +37,7 @@ def populate_db_command():
 
     user1 = User(username="willy_bonkya", email="willy_bonkya@chocolatefactory.com", password="willy_bonka123",profile_photo = 'random.png')
     user1.password = 'willy_bonka123'
-    user2 = User(username="bobby_brasko", email="notacop@forshure.com", password="password", profile_photo = 'Untitled.jpeg')
+    user2 = User(username="bobby_brasko", email="notacop@forsure.com", password="password", profile_photo = 'Untitled.jpeg')
     user2.password = 'password'
 
     db.session.add_all([user1, user2])  #make those .create() from baseModel latter

@@ -70,6 +70,12 @@ const convertExpanseCategory = function (num) {
   return obj[num];
 };
 
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    document.querySelector(".flashes").querySelector("p").style.opacity = 0;
+  }, 3000);
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   fetch(`/api/user/${userId}/expenses`)
     .then((response) => response.json())
