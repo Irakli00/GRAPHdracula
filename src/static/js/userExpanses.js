@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }, {});
 
       const groupedByDate = Object.values(expansesAmountData);
+      // console.log(groupedByDate, expansesAmountData);
       const expanseLabels = new Set(expenseData.map((el) => el.date));
 
       const expansesChart = new Chart(ctx2, {

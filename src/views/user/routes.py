@@ -22,27 +22,24 @@ def user(id):
         budget_amount = budget_form.budget_amount.data
 
         month = budget_date[:2]
-        users_every_budget = Budget.query.filter(Budget.user_id==user.id).all()
+        existiong_budget = Budget.query.filter(Budget.user_id==user.id, Budget.month == month).first()
+        print(current_user.id, existiong_budget)
 
-        for b in users_every_budget: #optimaze latter
-            if b.month == month:
-                b.amount = budget_amount
-            else:
-                new_budget_month = str(budget_form.budget_date.data[:2])
-                new_budget_year = budget_form.budget_date.data[-4:]
-                new_budget_amount = budget_form.budget_amount.data
-                new_budget_user = current_user.id
+        if existiong_budget:
+            existiong_budget.amount = budget_amount
+            db.session.commit() #changes db directly (bad)
+        else:
+            new_budget_month = str(budget_form.budget_date.data[:2])
+            new_budget_year = budget_form.budget_date.data[-4:]
+            new_budget_amount = budget_form.budget_amount.data
+            new_budget_user = current_user.id
 
-                if not Budget.query.filter(Budget.month== new_budget_month, Budget.year== new_budget_year,Budget.user_id== new_budget_user).first():
-                    new_budget = Budget(
+            new_budget = Budget(
                     amount=new_budget_amount,
                     year=new_budget_year,month=new_budget_month, user_id = new_budget_user
                     )
-
-                    db.session.add(new_budget)
-                    db.session.commit()
-
-            db.session.commit()
+            db.session.add(new_budget)
+        db.session.commit()
 
 
     if expanses_form.validate_on_submit():
@@ -79,6 +76,18 @@ def get_user_expenses(id):
         }
         for expense in user.expenses
     ]
+
+    comperative = {
+    '01': 0, '02': 1, '03': 2, '04': 3, '05': 4, '06': 5, '07': 6, '08': 7, '09': 8, '10': 9,
+    '11': 10, '12': 11, '13': 12, '14': 13, '15': 14, '16': 15, '17': 16, '18': 17, '19': 18, '20': 19,
+    '21': 20, '22': 21, '23': 22, '24': 23, '25': 24, '26': 25, '27': 26, '28': 27, '29': 28, '30': 29, '31': 30
+    }
     
-    return jsonify(expenses_data)
+    expenses_data_ordered = []
+
+    for ex in expenses_data:
+        i = comperative[ex['date'][:2]]
+        expenses_data_ordered.insert(i, ex)
+    
+    return jsonify(expenses_data_ordered)
 
