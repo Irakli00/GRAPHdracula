@@ -1,5 +1,6 @@
 const userId = document.getElementById("totalChart").dataset.userid;
 const expansesForm = document.querySelector(".expanses-form");
+const flashes = document?.querySelector(".flashes");
 const allCharts = [];
 
 const formatExpanses = function (expanses) {
@@ -33,26 +34,17 @@ const convertExpanseCategory = function (num) {
   return obj[num];
 };
 
-const flashes = document?.querySelector(".flashes");
-if (flashes) {
-  document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-      flashes.querySelector("p").style.opacity = 0;
-    }, 3000);
-  });
-}
-
 const asignBackgroundColors = function (data) {
   const backgroundColorsConverter = {
-    Transport: "rgb(255, 255, 0)",
-    Groceries: "rgb(0, 255, 0)",
-    Entertainment: "rgb(187, 86, 255)",
-    Healt: "rgb(86, 255, 123)",
-    Bills: "rgb(255, 120, 86)",
-    Travel: "rgb(255, 86, 86)",
-    Shopping: "rgb(86, 125, 255)",
-    Food: "rgb(255, 139, 86)",
-    Health: "rgb(255, 0, 0)",
+    Transport: "rgb(0, 128, 255)",
+    Groceries: "rgb(34, 139, 34)",
+    Entertainment: "rgb(255, 105, 180)",
+    Health: "rgb(0, 255, 0)",
+    Bills: "rgb(255, 99, 71)",
+    Travel: "rgb(135, 206, 235)",
+    Shopping: "rgb(255, 165, 0)",
+    Food: "rgb(255, 223, 186)",
+    Health: "rgb(0, 255, 0)",
   };
 
   return data.map((el) => {
@@ -63,6 +55,14 @@ const asignBackgroundColors = function (data) {
     }
   });
 };
+
+if (flashes) {
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      flashes.querySelector("p").style.opacity = 0;
+    }, 3000);
+  });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   fetch(`/api/user/${userId}/expenses`)
@@ -100,24 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const groupedByDate = Object.values(expansesAmountData);
       const expanseLabels = new Set(data.expanses.map((el) => el.date));
 
-      // const backgroundColors = groupedByDate.map(
-      //   (el) => backgroundColorsConverter[el.category]
-      // );
-
-      const backgroundColorsConverter = {
-        Transport: "rgb(255, 255, 0)",
-        Groceries: "rgb(0, 255, 0)",
-        Entertainment: "rgb(187, 86, 255)",
-        Healt: "rgb(86, 255, 123)",
-        Bills: "rgb(255, 120, 86)",
-        Travel: "rgb(255, 86, 86)",
-        Shopping: "rgb(86, 125, 255)",
-        Food: "rgb(255, 139, 86)",
-        Health: "rgb(255, 0, 0)",
-      };
-
       const catgrs = Object.entries(groupedExpenses).map(([key, _]) => key);
-
       //-----
 
       const ctx = document.getElementById("totalChart");
@@ -175,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               fill: {
                 target: "origin",
-                above: "rgba(0, 0, 255, 0.08)", // Area will be red above the origin
+                above: "rgba(0, 0, 255, 0.08)",
               },
             },
           ],

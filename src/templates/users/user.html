@@ -112,6 +112,7 @@
             <tr>
               <th>Amount</th>
               <th>Description</th>
+              <th>Category</th>
               <th>Date</th>
             </tr>
           </thead>
@@ -120,6 +121,7 @@
             <tr>
               <td>{{ expanse.amount }}</td>
               <td>{{ expanse.description }}</td>
+              <td>{{expanse.category.name}}</td>
               <td>{{ expanse.date }}</td>
             </tr>
             {% endfor %}
@@ -129,7 +131,6 @@
         {%else%}
         <h2>Add Your First Expanse!</h2>
         {%endif%}
-
         <form method="POST" class="expanses-form">
           {{ expanses_form.hidden_tag() }}
 
@@ -154,7 +155,6 @@
           {{ expanses_form.expanse_date(class="form-control", required=True) }}
           {{ expanses_form.submit(class="btn btn-primary") }}
         </form>
-        <p class="message"></p>
       </section>
     </div>
   </div>
