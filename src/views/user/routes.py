@@ -18,11 +18,11 @@ def user(id):
     user = User.query.get_or_404(id)
 
     if budget_form.validate_on_submit():
-        budget_date = budget_form.budget_date.data
+        budget_month = budget_form.budget_month.data
+        budget_year = budget_form.budget_year.data
         budget_amount = budget_form.budget_amount.data
 
-        month = budget_date[:2]
-        existiong_budget = Budget.query.filter(Budget.user_id==user.id, Budget.month == month).first()
+        existiong_budget = Budget.query.filter(Budget.user_id==user.id, Budget.month == budget_month).first()
         print(current_user.id, existiong_budget)
 
         if existiong_budget:

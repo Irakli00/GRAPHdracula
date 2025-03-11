@@ -85,8 +85,10 @@
             {{ budget_form.hidden_tag() }}
 
             <label for="budgetDate">Select Month:</label>
-            {{ budget_form.budget_date(id="budgetDate", min="2025-03",
+            {{ budget_form.budget_month(id="budgetDate", min="2025-03",
             required=True) }}
+            <label for="budgetYear">Select Year:</label>
+            {{ budget_form.budget_year(id="budgetYear", required=True) }}
 
             <label for="budgetAmount">Budget Amount:</label>
             {{ budget_form.budget_amount(id="budgetAmount", required=True) }} {{
