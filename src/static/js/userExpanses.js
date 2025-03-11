@@ -33,13 +33,36 @@ const convertExpanseCategory = function (num) {
   return obj[num];
 };
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   setTimeout(() => {
-//     const flashes = document.querySelector(".flashes");
+const flashes = document?.querySelector(".flashes");
+if (flashes) {
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      flashes.querySelector("p").style.opacity = 0;
+    }, 3000);
+  });
+}
 
-//     flashes.querySelector("p").style.opacity = 0;
-//   }, 3000);
-// });
+const asignBackgroundColors = function (data) {
+  const backgroundColorsConverter = {
+    Transport: "rgb(255, 255, 0)",
+    Groceries: "rgb(0, 255, 0)",
+    Entertainment: "rgb(187, 86, 255)",
+    Healt: "rgb(86, 255, 123)",
+    Bills: "rgb(255, 120, 86)",
+    Travel: "rgb(255, 86, 86)",
+    Shopping: "rgb(86, 125, 255)",
+    Food: "rgb(255, 139, 86)",
+    Health: "rgb(255, 0, 0)",
+  };
+
+  return data.map((el) => {
+    if (typeof el === "string") {
+      return backgroundColorsConverter[el];
+    } else {
+      return backgroundColorsConverter[el.category];
+    }
+  });
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   fetch(`/api/user/${userId}/expenses`)
@@ -49,10 +72,53 @@ document.addEventListener("DOMContentLoaded", function () {
         console.warn("No expenses found.");
         return;
       }
+      //---------
 
-      console.log(data.expanses);
       const groupedExpenses = formatExpanses(data.expanses);
       const labels = formatLabels(data.expanses);
+
+      const soulTrack = data.expanses.map((el) => {
+        return {
+          date: el.date,
+          amount: el.amount,
+          category: el.category,
+        };
+      });
+
+      const expansesAmountData = soulTrack.reduce((acc, expense) => {
+        if (!acc[expense.date]) {
+          acc[expense.date] = {
+            date: expense.date,
+            amount: 0,
+            category: expense.category,
+          };
+        }
+        acc[expense.date].amount += expense.amount;
+        return acc;
+      }, {});
+
+      const groupedByDate = Object.values(expansesAmountData);
+      const expanseLabels = new Set(data.expanses.map((el) => el.date));
+
+      // const backgroundColors = groupedByDate.map(
+      //   (el) => backgroundColorsConverter[el.category]
+      // );
+
+      const backgroundColorsConverter = {
+        Transport: "rgb(255, 255, 0)",
+        Groceries: "rgb(0, 255, 0)",
+        Entertainment: "rgb(187, 86, 255)",
+        Healt: "rgb(86, 255, 123)",
+        Bills: "rgb(255, 120, 86)",
+        Travel: "rgb(255, 86, 86)",
+        Shopping: "rgb(86, 125, 255)",
+        Food: "rgb(255, 139, 86)",
+        Health: "rgb(255, 0, 0)",
+      };
+
+      const catgrs = Object.entries(groupedExpenses).map(([key, _]) => key);
+
+      //-----
 
       const ctx = document.getElementById("totalChart");
       const totalChart = new Chart(ctx, {
@@ -62,15 +128,10 @@ document.addEventListener("DOMContentLoaded", function () {
           datasets: [
             {
               data: labels.map((category) => groupedExpenses[category]),
-              backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(54, 162, 235)",
-                "rgb(255, 205, 86)",
-                "rgb(86, 255, 123)",
-                "rgb(255, 86, 255)",
-                "rgb(255, 86, 86)",
-                "rgb(86, 125, 255)",
-              ],
+              backgroundColor: asignBackgroundColors([
+                ...catgrs.map((el) => el),
+              ]),
+
               borderColor: "rgb(0, 0, 0)",
               borderWidth: 0.5,
             },
@@ -100,23 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
       //-----------------
       const ctx2 = document.getElementById("expansesChart");
 
-      const soulTrack = data.expanses.map((el) => {
-        return { date: el.date, amount: el.amount };
-      });
-
-      const expansesAmountData = soulTrack.reduce((acc, expense) => {
-        if (!acc[expense.date]) {
-          acc[expense.date] = { date: expense.date, amount: 0 };
-        }
-        acc[expense.date].amount += expense.amount;
-        return acc;
-      }, {});
-
-      const groupedByDate = Object.values(expansesAmountData);
-      // console.log(groupedByDate, expansesAmountData);
-      const expanseLabels = new Set(data.expanses.map((el) => el.date));
-
-      console.log(data.budgets);
       const expansesChart = new Chart(ctx2, {
         type: "line",
         data: {
@@ -124,36 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
           datasets: [
             {
               data: groupedByDate.map((el) => el.amount),
-              backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(54, 162, 235)",
-                "rgb(255, 205, 86)",
-                "rgb(86, 255, 123)",
-                "rgb(255, 86, 255)",
-                "rgb(255, 86, 86)",
-                "rgb(86, 125, 255)",
-              ],
-              borderColor: "rgb(0, 0, 0)",
-              borderWidth: 0.5,
-              tension: 0.2,
-
-              fill: {
-                target: "origin",
-                above: "rgba(0, 0, 255, 0.08)", // Area will be red above the origin
-              },
-            },
-            // ----
-            {
-              data: data.budgets[0],
-              backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(54, 162, 235)",
-                "rgb(255, 205, 86)",
-                "rgb(86, 255, 123)",
-                "rgb(255, 86, 255)",
-                "rgb(255, 86, 86)",
-                "rgb(86, 125, 255)",
-              ],
+              backgroundColor: asignBackgroundColors(groupedByDate),
               borderColor: "rgb(0, 0, 0)",
               borderWidth: 0.5,
               tension: 0.2,
