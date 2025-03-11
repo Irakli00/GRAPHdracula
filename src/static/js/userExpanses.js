@@ -18,43 +18,6 @@ const formatLabels = function (data) {
   return [...new Set(data.map((expense) => expense.category))];
 };
 
-const createChart = function (ctx0, expanses) {
-  const ctx = document.getElementById("totalChart"); //ctx
-  const totalChart = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: formatLabels(expenseData),
-      datasets: [
-        {
-          data: labels.map((category) => groupedExpenses[category]),
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
-            "rgb(86, 255, 123)",
-            "rgb(255, 86, 255)",
-            "rgb(255, 86, 86)",
-            "rgb(86, 125, 255)",
-          ],
-          borderColor: "rgb(0, 0, 0)",
-          borderWidth: 0.5,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "top",
-        },
-      },
-    },
-  });
-
-  allCharts.push(totalChart);
-};
-
 const convertExpanseCategory = function (num) {
   const obj = {
     1: "Food",
@@ -70,31 +33,32 @@ const convertExpanseCategory = function (num) {
   return obj[num];
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    const flashes = document.querySelector(".flashes");
+// document.addEventListener("DOMContentLoaded", () => {
+//   setTimeout(() => {
+//     const flashes = document.querySelector(".flashes");
 
-    flashes.querySelector("p").style.opacity = 0;
-  }, 3000);
-});
+//     flashes.querySelector("p").style.opacity = 0;
+//   }, 3000);
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
   fetch(`/api/user/${userId}/expenses`)
     .then((response) => response.json())
-    .then((expenseData) => {
-      if (!expenseData.length) {
+    .then((data) => {
+      if (!data) {
         console.warn("No expenses found.");
         return;
       }
 
-      const groupedExpenses = formatExpanses(expenseData);
-      const labels = formatLabels(expenseData);
+      console.log(data.expanses);
+      const groupedExpenses = formatExpanses(data.expanses);
+      const labels = formatLabels(data.expanses);
 
       const ctx = document.getElementById("totalChart");
       const totalChart = new Chart(ctx, {
         type: "doughnut",
         data: {
-          labels: formatLabels(expenseData),
+          labels: formatLabels(data.expanses),
           datasets: [
             {
               data: labels.map((category) => groupedExpenses[category]),
@@ -136,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //-----------------
       const ctx2 = document.getElementById("expansesChart");
 
-      const soulTrack = expenseData.map((el) => {
+      const soulTrack = data.expanses.map((el) => {
         return { date: el.date, amount: el.amount };
       });
 
@@ -150,8 +114,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const groupedByDate = Object.values(expansesAmountData);
       // console.log(groupedByDate, expansesAmountData);
-      const expanseLabels = new Set(expenseData.map((el) => el.date));
+      const expanseLabels = new Set(data.expanses.map((el) => el.date));
 
+      console.log(data.budgets);
       const expansesChart = new Chart(ctx2, {
         type: "line",
         data: {
@@ -170,6 +135,33 @@ document.addEventListener("DOMContentLoaded", function () {
               ],
               borderColor: "rgb(0, 0, 0)",
               borderWidth: 0.5,
+              tension: 0.2,
+
+              fill: {
+                target: "origin",
+                above: "rgba(0, 0, 255, 0.08)", // Area will be red above the origin
+              },
+            },
+            // ----
+            {
+              data: data.budgets[0],
+              backgroundColor: [
+                "rgb(255, 99, 132)",
+                "rgb(54, 162, 235)",
+                "rgb(255, 205, 86)",
+                "rgb(86, 255, 123)",
+                "rgb(255, 86, 255)",
+                "rgb(255, 86, 86)",
+                "rgb(86, 125, 255)",
+              ],
+              borderColor: "rgb(0, 0, 0)",
+              borderWidth: 0.5,
+              tension: 0.2,
+
+              fill: {
+                target: "origin",
+                above: "rgba(0, 0, 255, 0.08)", // Area will be red above the origin
+              },
             },
           ],
         },

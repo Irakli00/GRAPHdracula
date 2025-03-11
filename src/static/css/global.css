@@ -178,7 +178,7 @@ header .container a {
 }
 
 header .container a i {
-  font-style: normal;
+  margin-left: -6px;
 }
 
 header .container a span {

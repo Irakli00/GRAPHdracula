@@ -66,7 +66,11 @@ def user(id):
 @users_blueprint.route("/api/user/<int:id>/expenses")
 def get_user_expenses(id):
     user = User.query.get_or_404(id)
-    
+    budgets = Budget.query.filter(Budget.user_id==user.id).all()
+    print(budgets)
+
+    budgets_amounts = [{f"{budget.month}":budget.amount} for i, budget in enumerate(budgets)]
+
     expenses_data = [
         {
             "amount": expense.amount,
@@ -88,6 +92,8 @@ def get_user_expenses(id):
     for ex in expenses_data:
         i = comperative[ex['date'][:2]]
         expenses_data_ordered.insert(i, ex)
-    
-    return jsonify(expenses_data_ordered)
+
+
+    return jsonify({'expanses':expenses_data_ordered,
+                    'budgets':budgets_amounts})
 
