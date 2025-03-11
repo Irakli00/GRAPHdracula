@@ -81,19 +81,21 @@ def get_user_expenses(id):
         for expense in user.expenses
     ]
 
-    comperative = {
-    '01': 0, '02': 1, '03': 2, '04': 3, '05': 4, '06': 5, '07': 6, '08': 7, '09': 8, '10': 9,
-    '11': 10, '12': 11, '13': 12, '14': 13, '15': 14, '16': 15, '17': 16, '18': 17, '19': 18, '20': 19,
-    '21': 20, '22': 21, '23': 22, '24': 23, '25': 24, '26': 25, '27': 26, '28': 27, '29': 28, '30': 29, '31': 30
-    }
-    
-    expenses_data_ordered = []
-
-    for ex in expenses_data:
-        i = comperative[ex['date'][:2]]
-        expenses_data_ordered.insert(i, ex)
+    expenses_data = [
+        {
+            "amount": expense.amount,
+            "description": expense.description,
+            "date": expense.date.strftime("%d %B %Y"),
+            "category": expense.category.name
+        }
+        for expense in user.expenses
+    ]
 
 
-    return jsonify({'expanses':expenses_data_ordered,
-                    'budgets':budgets_amounts})
+    expenses_data_ordered = sorted(expenses_data, key=lambda x: int(x['date'][:2]))
 
+
+    return jsonify({
+        'expanses': expenses_data_ordered,
+        'budgets': budgets_amounts
+})

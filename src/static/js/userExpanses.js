@@ -77,6 +77,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const groupedExpenses = formatExpanses(data.expanses);
       const labels = formatLabels(data.expanses);
 
+      console.log(data.expanses);
+
       const soulTrack = data.expanses.map((el) => {
         return {
           date: el.date,
