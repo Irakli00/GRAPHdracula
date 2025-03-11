@@ -50,7 +50,11 @@
   <div class="container">
     <div class="stat-area">
       <section id="totallExpanses">
-        <h2>Your Tottal Expanses</h2>
+        {% if expanses %}
+        <h2>Your Tottal Expanses:</h2>
+        {%else%}
+        <h2>You Have No Expanses Yet</h2>
+        {%endif%}
         <section>
           <canvas id="totalChart" data-userId="{{user.id}}"></canvas>
         </section>
@@ -98,12 +102,11 @@
       </section>
 
       <section id="addExpanses" class="hidden">
-        <h2>Your expanses in March</h2>
-
+        {%if expanses%}
+        <h2>Your expanses in March:</h2>
         <article>
           <canvas id="expansesChart" data-userId="{{user.id}}"></canvas>
         </article>
-
         <table class="budget-table">
           <thead>
             <tr>
@@ -122,6 +125,10 @@
             {% endfor %}
           </tbody>
         </table>
+
+        {%else%}
+        <h2>Add Your First Expanse!</h2>
+        {%endif%}
 
         <form method="POST" class="expanses-form">
           {{ expanses_form.hidden_tag() }}

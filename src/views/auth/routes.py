@@ -31,6 +31,8 @@ def logIn():
 
 @auth_blueprint.route('/signUp', methods =['POST','GET'])
 def signUp():
+    logout_user()
+
     def generate_uuid_filename(filename):
         unique_filename = str(uuid.uuid4().hex[:18]) 
         _, file_extension = os.path.splitext(filename)

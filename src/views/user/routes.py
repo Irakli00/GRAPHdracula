@@ -29,8 +29,8 @@ def user(id):
             existiong_budget.amount = budget_amount
             db.session.commit() #changes db directly (bad)
         else:
-            new_budget_month = str(budget_form.budget_date.data[:2])
-            new_budget_year = budget_form.budget_date.data[-4:]
+            new_budget_month = str(budget_form.budget_month.data)
+            new_budget_year = budget_form.budget_year.data
             new_budget_amount = budget_form.budget_amount.data
             new_budget_user = current_user.id
 
@@ -57,8 +57,8 @@ def user(id):
         flash("You are not authorized to view this page.", "danger")
         return redirect(url_for('main.index'))
     
-    user_budgets = Budget.query.filter(Budget.user_id == current_user.id)
-    user_expanses = Expense.query.filter(Expense.user_id == current_user.id)
+    user_budgets = Budget.query.filter(Budget.user_id == current_user.id).all()
+    user_expanses = Expense.query.filter(Expense.user_id == current_user.id).all()
     
     return render_template('users/user.html', user=user, budget_form=budget_form, budgets = user_budgets, expanses_form = expanses_form, expanses = user_expanses)
 

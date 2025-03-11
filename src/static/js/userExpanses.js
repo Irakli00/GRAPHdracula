@@ -72,7 +72,9 @@ const convertExpanseCategory = function (num) {
 
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
-    document.querySelector(".flashes").querySelector("p").style.opacity = 0;
+    const flashes = document.querySelector(".flashes");
+
+    flashes.querySelector("p").style.opacity = 0;
   }, 3000);
 });
 
