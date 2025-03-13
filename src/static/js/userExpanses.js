@@ -1,6 +1,7 @@
 const userId = document.getElementById("totalChart").dataset.userid;
 const expansesForm = document.querySelector(".expanses-form");
 const flashes = document?.querySelector(".flashes");
+const spendingStatus = document?.querySelector(".spending_status");
 const allCharts = [];
 
 const formatExpanses = function (expanses) {
@@ -141,7 +142,20 @@ document.addEventListener("DOMContentLoaded", function () {
         0
       );
 
+      console.log(data.budgets[0]);
+
+      const month = new Date().getMonth();
+      console.log(month);
+
       document.getElementById("tottal-js").textContent = `${total}$`;
+      spendingStatus.textContent =
+        data.budgets[0][`0${month + 1}`] > total
+          ? `You Have ${
+              data.budgets[0][`0${month + 1}`] - total
+            }$ In Your Disposal`
+          : `You Are ${
+              total - data.budgets[0][`0${month + 1}`]
+            }$ Over Your Budget`;
 
       //-----------------
       const ctx2 = document.getElementById("expansesChart");

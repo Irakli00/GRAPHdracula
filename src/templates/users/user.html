@@ -28,15 +28,20 @@
 
         {%endif%}
         <h1>{{user.username}}</h1>
-
         <p>{{user.email}}</p>
       </article>
       <article>
         <p class="budget-for">
-          Budget for {{user.budget.month}}, {{user.budget.year}} :
+          {%if user.budget%} Budget for {{user.budget.month}},
+          {{user.budget.year}} :
           <b> {{user.budget.amount}}$ </b>
+
+          {%else%}
+          <b>You have no Budget for This Month</b>
+          {%endif%}
         </p>
         <p>Tottal spent: <b id="tottal-js"></b></p>
+        <p class="spending_status"></p>
       </article>
     </section>
   </div>
