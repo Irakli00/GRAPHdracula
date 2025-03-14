@@ -452,3 +452,19 @@ header .container a span {
   background-color: rgb(0, 89, 255);
   color: #fff;
 }
+
+.expanses-form {
+  background-color: var(--main-bg);
+  color: #fff;
+  padding: 20px 5px;
+}
+
+.expanses-form #submit {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--main-bg);
+  font-weight: 700;
+  margin-left: 15px;
+}
